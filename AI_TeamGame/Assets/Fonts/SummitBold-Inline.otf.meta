@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 1768a2b56cd8e0e4b9f1f7808bd5f6b2
+timeCreated: 1569092299
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Summit Bold
+  fontNames:
+  - Summit Bold
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
