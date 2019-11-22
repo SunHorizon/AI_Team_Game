@@ -32,6 +32,7 @@ public class PlayerHelth : MonoBehaviour {
         {
             Health -= 10;
             heathBar.sizeDelta = new Vector2(Health * healthScale, heathBar.sizeDelta.y);
+            Destroy(other.gameObject);
         }
     }
 

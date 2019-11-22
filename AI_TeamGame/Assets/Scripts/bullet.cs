@@ -6,6 +6,7 @@ public class bullet : MonoBehaviour
 {
 
     private float timer;
+    [SerializeField] private string name;
 
     [Header("Component")]
     [SerializeField] private Rigidbody2D rigidbody;
@@ -32,6 +33,15 @@ public class bullet : MonoBehaviour
         }
 
         rigidbody.AddForce(gameObject.transform.up * BulletSpeed * 10);
-       
+    }
+
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == name)
+        {
+            GameScore.points += 5;
+            Destroy(other.gameObject);
+        }
     }
 }
