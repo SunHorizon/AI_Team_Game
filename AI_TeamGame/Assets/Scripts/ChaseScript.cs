@@ -6,10 +6,13 @@ public class ChaseScript : MonoBehaviour
 {
     [Header("Info")]
     [SerializeField] private string name;
+    [SerializeField] private string tag;
     [SerializeField] private GameObject target;
     [SerializeField] private Vector3 orientation;
     [SerializeField] private float angularVelocitiy;
     [SerializeField] private float speed;
+    [SerializeField] GameObject LuckyEnemy;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -61,5 +64,22 @@ public class ChaseScript : MonoBehaviour
     {
         Vector3 angle = new Vector3(0, 0, -Mathf.Atan2(orientation.x, orientation.y) * Mathf.Rad2Deg);
         transform.eulerAngles = angle;
+    }
+    void SpawnLuckyEnemy()
+    {
+        int e = Random.Range(1, 10);
+        if(e < 5)
+        {
+            Instantiate(LuckyEnemy, new Vector3(gameObject.transform.position.x + 2, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
+        }
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Debug.Log(other.tag);
+        if (other.tag == tag)
+        {
+            SpawnLuckyEnemy();
+            Destroy(gameObject);
+        }
     }
 }

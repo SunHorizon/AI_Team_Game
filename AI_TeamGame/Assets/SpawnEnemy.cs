@@ -7,7 +7,7 @@ public class SpawnEnemy : MonoBehaviour
     [SerializeField] List<GameObject> spawns = new List<GameObject>();
 
     [SerializeField] private float SpawnTimer;
-    [SerializeField] private GameObject Enemy;
+    [SerializeField] private GameObject[] Enemy;
     private float timer;
 
     // Start is called before the first frame update
@@ -23,8 +23,13 @@ public class SpawnEnemy : MonoBehaviour
         if (timer <= 0)
         {
             int spawnPoint = Random.Range(0, spawns.Count);
-            Instantiate(Enemy, spawns[spawnPoint].transform.position, spawns[spawnPoint].transform.rotation);
+            Instantiate(Enemy[RandomInt()], spawns[spawnPoint].transform.position, spawns[spawnPoint].transform.rotation);
             timer = SpawnTimer;
         }
+    }
+    int RandomInt()
+    {
+        int e = Random.Range(0, Enemy.Length);
+        return e;
     }
 }
