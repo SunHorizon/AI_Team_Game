@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChaseScript : MonoBehaviour
 {
     [Header("Info")]
+    [SerializeField] private string name;
     [SerializeField] private GameObject target;
     [SerializeField] private Vector3 orientation;
     [SerializeField] private float angularVelocitiy;
@@ -12,9 +13,13 @@ public class ChaseScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        target = GameObject.Find(name);
         orientation = Vector3.up;
     }
-
+    private void Update()
+    {
+        ChaseTarget(target.transform.position);
+    }
     private void ChaseTarget(Vector3 target_)
     {
         float dt = Time.deltaTime;
