@@ -70,7 +70,7 @@ public class ChaseScript : MonoBehaviour
         int e = Random.Range(1, 10);
         if(e < 5)
         {
-            Instantiate(LuckyEnemy, new Vector3(gameObject.transform.position.x + 2, gameObject.transform.position.y, gameObject.transform.position.z), Quaternion.identity);
+            Instantiate(LuckyEnemy, new Vector3(gameObject.transform.position.x + 2, gameObject.transform.position.y, gameObject.transform.position.z   ), Quaternion.identity);
         }
     }
     void OnTriggerEnter2D(Collider2D other)

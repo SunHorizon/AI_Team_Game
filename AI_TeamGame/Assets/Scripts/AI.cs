@@ -10,6 +10,7 @@ public class AI : MonoBehaviour
     private Vector3 velocity;
     [SerializeField] private string name;
 
+
     // Start is called before the first frame update
     void Start()
     {

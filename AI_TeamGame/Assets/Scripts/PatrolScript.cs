@@ -16,6 +16,7 @@ public class PatrolScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()    
     {
+        Nodes = GameObject.FindGameObjectsWithTag("Nodes");
         nodeIndex = 0;
         currentNode = Nodes[nodeIndex].transform.position;
     }
