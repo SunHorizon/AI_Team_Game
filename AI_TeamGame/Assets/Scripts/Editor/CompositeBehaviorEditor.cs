@@ -4,117 +4,114 @@ using UnityEditor;
 using UnityEngine;
 
 
-[CustomEditor(typeof(CompositeBehavior))]
+[CustomEditor(typeof(CompBehaviour2))]
 public class CompositeBehaviorEditor : Editor {
 
     public override void OnInspectorGUI()
     {
-        CompositeBehavior cb = (CompositeBehavior) target;
+        CompBehaviour2 cb = (CompBehaviour2)target;
 
-        Rect r = EditorGUILayout.BeginHorizontal();
-        r.height = EditorGUIUtility.singleLineHeight;
 
-        if (cb.behaviors == null || cb.behaviors.Length == 0)
+
+
+        //check
+
+        if (cb.behaviours == null || cb.behaviours.Length == 0)
         {
-            EditorGUILayout.HelpBox("No Behaviors in Array", MessageType.Warning);
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.HelpBox("no behaviours in array", MessageType.Warning);
             EditorGUILayout.EndHorizontal();
-            r = EditorGUILayout.BeginHorizontal();
-            r.height = EditorGUIUtility.singleLineHeight;
+
+
+
+
         }
+
         else
         {
-            // offset a little on the left
-            r.x = 30f;
-
-            r.width = EditorGUIUtility.currentViewWidth - 95f;
-            EditorGUI.LabelField(r, "Behaviors");
-            r.x = EditorGUIUtility.currentViewWidth - 65f;
-            r.width = 60f;
-            EditorGUI.LabelField(r, "Weights");
-            r.y += EditorGUIUtility.singleLineHeight * 1.2f;
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField("Number", GUILayout.MinWidth(60f), GUILayout.MaxWidth(60f));
+            EditorGUILayout.LabelField("Behaviors", GUILayout.MinWidth(60f));
+            EditorGUILayout.LabelField("Weights", GUILayout.MinWidth(60f), GUILayout.MaxWidth(60f));
+            EditorGUILayout.EndHorizontal();
 
             EditorGUI.BeginChangeCheck();
-            for (int i = 0; i < cb.behaviors.Length; i++)
+            for (int i = 0; i < cb.behaviours.Length; i++)
             {
-                r.x = 5f;
-                r.width = 20;
-                EditorGUI.LabelField(r, i.ToString());
-                r.x = 30f;
-                r.width = EditorGUIUtility.currentViewWidth - 95f;
-                cb.behaviors[i] =
-                    (FloakBehavior) EditorGUI.ObjectField(r, cb.behaviors[i], typeof(FloakBehavior), false);
-
-                r.x = EditorGUIUtility.currentViewWidth - 65f;
-                r.width = 60f;
-                cb.weights[i] = EditorGUI.FloatField(r, cb.weights[i]);
-                r.y += EditorGUIUtility.singleLineHeight * 1.1f;
-
+                EditorGUILayout.BeginHorizontal();
+                EditorGUILayout.LabelField(i.ToString(), GUILayout.MinWidth(60f), GUILayout.MaxWidth(60f));
+                cb.behaviours[i] = (FlockBehaviour2)EditorGUILayout.ObjectField(cb.behaviours[i], typeof(FlockBehaviour2), false, GUILayout.MinWidth(60f));
+                cb.weights[i] = EditorGUILayout.FloatField(cb.weights[i], GUILayout.MinWidth(60f), GUILayout.MaxWidth(60f));
+                EditorGUILayout.EndHorizontal();
             }
-
             if (EditorGUI.EndChangeCheck())
             {
                 EditorUtility.SetDirty(cb);
             }
+
+            //Rect r = EditorGUILayout.BeginHorizontal();
+            //r.height = EditorGUIUtility.singleLineHeight;
+            //r.x = 5f;
+            //r.width = EditorGUIUtility.currentViewWidth - 10f;
+            //r.y += EditorGUIUtility.singleLineHeight * 0.5f;
+
         }
 
-        EditorGUILayout.EndHorizontal();
-            r.x = 5f;
-            r.width = EditorGUIUtility.currentViewWidth - 10f;
-            r.y += EditorGUIUtility.singleLineHeight * 0.5f;
-            if (GUI.Button(r, "Add Behavior"))
+        if (GUILayout.Button("Add Behaviour"))
+        {
+            AddBehaviour(cb);
+            EditorUtility.SetDirty(cb);
+        }
+
+        //r.y += EditorGUIUtility.singleLineHeight * 1.5f;
+        if (cb.behaviours != null && cb.behaviours.Length > 0)
+        {
+            if (GUILayout.Button("Remove Behaviour"))
             {
-                //add Behavior
-                AddBehavior(cb);
+                RemoveBehaviour(cb);
                 EditorUtility.SetDirty(cb);
             }
+        }
 
-            r.y += EditorGUIUtility.singleLineHeight * 1.5f;
-            if (cb.behaviors != null && cb.behaviors.Length > 0)
-            {
-                if (GUI.Button(r, "Remove Behavior"))
-                {
-                    // remove Behavior
-                    RemoveBehavior(cb);
-                    EditorUtility.SetDirty(cb);
-                }
-            }
-  
     }
 
-    void AddBehavior(CompositeBehavior cb)
+    void AddBehaviour(CompBehaviour2 cb)
     {
-        int oldCount = (cb.behaviors != null) ? cb.behaviors.Length : 0;
-        FloakBehavior[] newBehaviors = new FloakBehavior[oldCount + 1];
+        int oldCount = (cb.behaviours != null) ? cb.behaviours.Length : 0;
+        FlockBehaviour2[] newBehaviours = new FlockBehaviour2[oldCount + 1];
         float[] newWeights = new float[oldCount + 1];
         for (int i = 0; i < oldCount; i++)
         {
-            newBehaviors[i] = cb.behaviors[i];
+            newBehaviours[i] = cb.behaviours[i];
             newWeights[i] = cb.weights[i];
-        }
 
+        }
         newWeights[oldCount] = 1f;
-        cb.behaviors = newBehaviors;
+        cb.behaviours = newBehaviours;
         cb.weights = newWeights;
     }
 
-    void RemoveBehavior(CompositeBehavior cb)
+    void RemoveBehaviour(CompBehaviour2 cb)
     {
-        int oldCount = cb.behaviors.Length;
-        if(oldCount == 1)
+        int oldCount = cb.behaviours.Length;
+        if (oldCount == 1)
         {
-            cb.behaviors = null;
+            cb.behaviours = null;
             cb.weights = null;
             return;
         }
-
-        FloakBehavior[] newBehaviors = new FloakBehavior[oldCount - 1];
+        FlockBehaviour2[] newBehaviours = new FlockBehaviour2[oldCount - 1];
         float[] newWeights = new float[oldCount - 1];
         for (int i = 0; i < oldCount - 1; i++)
         {
-            newBehaviors[i] = cb.behaviors[i];
+            newBehaviours[i] = cb.behaviours[i];
             newWeights[i] = cb.weights[i];
+
         }
-        cb.behaviors = newBehaviors;
+        cb.behaviours = newBehaviours;
         cb.weights = newWeights;
     }
 }
+
+
+

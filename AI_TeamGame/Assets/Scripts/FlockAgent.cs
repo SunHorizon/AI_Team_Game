@@ -20,6 +20,7 @@ public class FlockAgent : MonoBehaviour
     {
         agentCollider = GetComponent<Collider2D>();
         Destroyed = false;
+       // transform.position = new Vector3(0.0f, 0.0f, -200f);
     }
 
     public void Move(Vector2 velocity)
