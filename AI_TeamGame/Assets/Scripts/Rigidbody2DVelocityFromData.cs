@@ -11,6 +11,7 @@ public class Rigidbody2DVelocityFromData : MonoBehaviour
     [Header("References")]
     [SerializeField] private Data data;
     [SerializeField] private Rigidbody2D rigidbody;
+    public Vector2 Velocity;
 
     // Start is called before the first frame update
     void Start()
@@ -20,9 +21,17 @@ public class Rigidbody2DVelocityFromData : MonoBehaviour
         dataInput = data.Vector2(dataInput);
     }
 
+
+
     // Update is called once per frame
     void Update()
     {
         rigidbody.velocity = Vector2.MoveTowards(rigidbody.velocity, (Vector2)dataInput * (float)dataSpeed, (float)dataAcceleration);
+        Velocity = Vector2.MoveTowards(rigidbody.velocity, (Vector2)dataInput * (float)dataSpeed, (float)dataAcceleration);
+    }
+
+    public Vector2 GetVelocity()
+    {
+        return Velocity;
     }
 }
